@@ -1,0 +1,22 @@
+{
+  "name": "coffee-api",
+  "version": "1.0.0",
+  "description": "A CRUD api to query coffee drinks",
+  "main": "index.js",
+  "repository": "https://github.com/gharders0/coffee-api.git",
+  "author": "Grace Harders <grace.harders@asurion.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^7.4.3",
+    "nodemon": "^3.0.1"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}
