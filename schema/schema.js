@@ -18,12 +18,12 @@ const RootQuery = new GraphQLObjectType({
   fields: () => ({
     drinks: {
       type: new GraphQLList(DrinkType),
-      description: 'List of All Coffees',
+      description: 'List of All Drinks',
       resolve: () => Drink.find(),
     },
     drink: {
       type: DrinkType,
-      description: 'A single coffee',
+      description: 'A single drink',
       args: {
         name: { type: GraphQLString },
       },
@@ -55,23 +55,25 @@ const RootMutation = new GraphQLObjectType({
         return drink.save();
       },
     },
-    // removeCoffee: {
-    //   type: CoffeeType,
-    //   description: 'Remove a coffee drink',
-    //   args: {
-    //     id: { type: new GraphQLNonNull(GraphQLInt) },
-    //   },
-    //   resolve: (parent, args) => {
-    //     Coffees = Coffees.filter((coffee) => coffee.id !== args.id);
-    //     return Coffees[args.id];
-    //   },
-    // },
-    // updateCoffee: {
-    //   type: CoffeeType,
+    removeDrink: {
+      type: DrinkType,
+      description: 'Remove a coffee drink',
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (parent, args) => {
+        Drink.deleteOne({ name: args.name });
+      },
+    },
+    // TODO: update method...
+    // updateDrink: {
+    //   type: DrinkType,
     //   description: 'Update a coffee drink',
     //   args: {
-    //     id: { type: new GraphQLNonNull(GraphQLInt) },
     //     name: { type: new GraphQLNonNull(GraphQLString) },
+    //     calories: { type: GraphQLInt },
+    //     ingredients: { type: GraphQLList },
+    //     country: { type: GraphQLString },
     //   },
     //   resolve: (parent, args) => {
     //     Coffees[args.id - 1].name = args.name;
