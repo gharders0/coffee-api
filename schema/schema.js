@@ -57,7 +57,7 @@ const RootMutation = new GraphQLObjectType({
     },
     removeDrink: {
       type: DrinkType,
-      description: 'Remove a coffee drink',
+      description: 'Remove a drink',
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
       },
@@ -65,21 +65,21 @@ const RootMutation = new GraphQLObjectType({
         Drink.deleteOne({ name: args.name });
       },
     },
-    // TODO: update method...
-    // updateDrink: {
-    //   type: DrinkType,
-    //   description: 'Update a coffee drink',
-    //   args: {
-    //     name: { type: new GraphQLNonNull(GraphQLString) },
-    //     calories: { type: GraphQLInt },
-    //     ingredients: { type: GraphQLList },
-    //     country: { type: GraphQLString },
-    //   },
-    //   resolve: (parent, args) => {
-    //     Coffees[args.id - 1].name = args.name;
-    //     return Coffees[args.id - 1];
-    //   },
-    // },
+    updateDrinkIngredients: {
+      type: DrinkType,
+      description: 'Update drink ingredients',
+      args: {
+        name: { type: GraphQLString },
+        ingredients: { type: new GraphQLList(GraphQLString) },
+      },
+      resolve: (parent, args) => {
+        const updatedDrink = Drink.findOneAndUpdate(
+          { name: args.name },
+          { ingredients: args.ingredients }
+        );
+        return updatedDrink;
+      },
+    },
   }),
 });
 
